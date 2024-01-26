@@ -1,4 +1,4 @@
-FROM alpine AS curl
+FROM --platform=$TARGETOS/$TARGETARCH alpine AS curl
 
 # Install build dependencies
 RUN apk add openssl-dev make g++ curl
@@ -15,7 +15,10 @@ RUN ./configure --with-openssl --enable-websockets
 # Compile
 RUN make && make install
 
-FROM alpine
+FROM --platform=$TARGETOS/$TARGETARCH alpine
+
+LABEL org.opencontainers.image.source="https://github.com/kordlib/docker"
+LABEL org.opencontainers.image.licenses=MIT
 
 # See https://youtrack.jetbrains.com/issue/KT-38876/#focus=Comments-27-4805258.0-0
 RUN apk add gcompat
