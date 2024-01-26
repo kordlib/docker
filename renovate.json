@@ -9,7 +9,7 @@
       "matchStrings": ["curl-(?<currentValue>\\d+\\.\\d+\\.\\d+)\\.tar\\.gz"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "curl/curl",
-      "versioningTemplate": "regex:^curl-(?<major>\\d+)_(?<minor>\\d+)_(?<patch>\\d+)?$"
+      "versioningTemplate": "regex:^(?:curl-)?(?<major>\\d+)[_.](?<minor>\\d+)[_.](?<patch>\\d+)$"
     }
   ]
 }
