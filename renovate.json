@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update curl Version",
+      "fileMatch": ["Dockerfile"],
+      "matchStrings": ["curl-(?<currentValue>\\d+\\.\\d+\\.\\d+)\\.tar\\.gz"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "curl/curl",
+      "versioningTemplate": "regex:^(?:curl-)?(?<major>\\d+)[_.](?<minor>\\d+)[_.](?<patch>\\d+)$"
+    }
+  ]
+}
