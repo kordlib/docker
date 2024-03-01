@@ -26,3 +26,4 @@ COPY --from=curl /usr/local/lib/libcurl.so /usr/lib/libcurl.so
 COPY --from=curl /usr/local/lib/libcurl.so.4 /usr/lib/libcurl.so.4
 COPY --from=curl /usr/local/lib/libcurl.so.4.8.0 /usr/lib/libcurl.so.4.8.0
 
+RUN apt update && apt install libssl3 ca-certificates -y
