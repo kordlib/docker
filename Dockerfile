@@ -1,27 +1,24 @@
-FROM --platform=$TARGETOS/$TARGETARCH alpine AS curl
+FROM --platform=$TARGETOS/$TARGETARCH debian AS curl
 
 # Install build dependencies
-RUN apk add openssl-dev make g++ curl
+RUN apt update && apt install libssl-dev make g++ curl -y
 
 # Download curl source from https://curl.se/download/
 RUN curl -o curl.tgz https://curl.se/download/curl-8.5.0.tar.gz
 
 # Unpack
-RUN  tar xzvf curl.tgz --strip-components=1
+RUN tar xzvf curl.tgz
 
-# Configure
-RUN ./configure --with-openssl --enable-websockets
+# Build
+RUN cd curl-*/ && \
+    ./configure --with-openssl --enable-websockets && \
+    make && make install
 
-# Compile
-RUN make && make install
-
-FROM --platform=$TARGETOS/$TARGETARCH alpine
+FROM --platform=$TARGETOS/$TARGETARCH debian
 
 LABEL org.opencontainers.image.source="https://github.com/kordlib/docker"
 LABEL org.opencontainers.image.licenses=MIT
 
-# See https://youtrack.jetbrains.com/issue/KT-38876/#focus=Comments-27-4805258.0-0
-RUN apk add gcompat
 # https://github.com/ktorio/ktor/blob/6265a80481d77cdbb2ff7950750e8ee5aa085813/ktor-client/ktor-client-curl/desktop/interop/libcurl.def#L28C32-L28C42
 COPY --from=curl /usr/local/lib/libcurl.a /usr/lib/libcurl.a
 COPY --from=curl /usr/local/lib/libcurl.la /usr/lib/libcurl.la
