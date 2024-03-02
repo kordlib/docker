@@ -1,7 +1,7 @@
 FROM --platform=$TARGETOS/$TARGETARCH debian AS curl
 
 # Install build dependencies
-RUN apt update && apt install libssl-dev make g++ curl -y
+RUN apt update && apt install libssl-dev make g++ curl libpsl-dev -y
 
 # Download curl source from https://curl.se/download/
 RUN curl -o curl.tgz https://curl.se/download/curl-8.6.0.tar.gz
@@ -26,4 +26,4 @@ COPY --from=curl /usr/local/lib/libcurl.so /usr/lib/libcurl.so
 COPY --from=curl /usr/local/lib/libcurl.so.4 /usr/lib/libcurl.so.4
 COPY --from=curl /usr/local/lib/libcurl.so.4.8.0 /usr/lib/libcurl.so.4.8.0
 
-RUN apt update && apt install libssl3 ca-certificates -y
+RUN apt update && apt install libssl3 ca-certificates psl -y
