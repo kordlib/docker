@@ -11,7 +11,7 @@ RUN tar xzvf curl.tgz
 
 # Build
 RUN cd curl-*/ && \
-    ./configure --with-openssl --enable-websockets && \
+    ./configure --with-openssl --enable-websockets --with-nghttp2 && \
     make && make install
 
 FROM --platform=$TARGETOS/$TARGETARCH debian
