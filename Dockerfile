@@ -4,7 +4,7 @@ FROM --platform=$TARGETOS/$TARGETARCH debian AS curl
 RUN apt update && apt install libssl-dev make g++ curl libpsl-dev libnghttp2-dev -y
 
 # Download curl source from https://curl.se/download/
-RUN curl -o curl.tgz https://curl.se/download/curl-8.13.0.tar.gz
+RUN curl -o curl.tgz https://curl.se/download/curl-8.18.0.tar.gz
 
 # Unpack
 RUN tar xzvf curl.tgz
